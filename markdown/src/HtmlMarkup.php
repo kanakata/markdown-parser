@@ -1,7 +1,7 @@
 <?php
 namespace Markdown\Src;
 class HtmlMarkup{
-    function body_start()
+    public function body_start()
 {
     return <<<HEAD
     <head>
@@ -101,12 +101,12 @@ class HtmlMarkup{
         </script>
 HEAD;
 }
-function body_end()
+public function body_end()
 {
     return "
     </body>";
 }
-function mid_dot()
+public function mid_dot()
 {
     return "<span style='font-size:40px;'>" . "&middot" . "</span>";
 }
@@ -116,27 +116,27 @@ function mid_dot()
  * @param string $text
  * @return string
  */
-function h1(string $text)
+public function h1(string $text)
 {
     return "<h1>" . $text . "</h1>";
 }
-function h2(string $text)
+public function h2(string $text)
 {
     return "<h2>" . $text . "</h2>";
 }
-function p(string $text)
+public function p(string $text)
 {
     return "<p>" . $text . "</p>";
 }
-function note(string $text)
+public function note(string $text)
 {
     return "<div class='note'>" . $text . "</div>";
 }
-function code_start()
+public function code_start()
 {
     return "<div class='code'><code>";
 }
-function code_end()
+public function code_end()
 {
     return "</code></div>";
 }
