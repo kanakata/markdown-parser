@@ -1,5 +1,7 @@
 <?php
-function body_start()
+namespace Markdown\Src;
+class HtmlMarkup{
+    function body_start()
 {
     return <<<HEAD
     <head>
@@ -108,6 +110,12 @@ function mid_dot()
 {
     return "<span style='font-size:40px;'>" . "&middot" . "</span>";
 }
+
+/**
+ * Converts text to a html heading
+ * @param string $text
+ * @return string
+ */
 function h1(string $text)
 {
     return "<h1>" . $text . "</h1>";
@@ -131,4 +139,5 @@ function code_start()
 function code_end()
 {
     return "</code></div>";
+}
 }

@@ -1,0 +1,17 @@
+{
+    "name": "administrator/markdown",
+    "autoload": {
+        "psr-4": {
+            "Markdown\\": "markdown/"
+        }
+    },
+    "authors": [
+        {
+            "name": "kanakata",
+            "email": "patrick37668@gmail.com"
+        }
+    ],
+    "require": {
+        "dompdf/dompdf": "^3.1"
+    }
+}

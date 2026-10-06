@@ -1,0 +1,55 @@
+<?php
+require dirname(__DIR__) .  "/vendor/autoload.php";
+use Markdown\Src\Html;
+use Markdown\Src\Pdf;
+$start = microtime(true);
+function main(array $argv, int $argc)
+{
+    if (count($argv) == 1) {
+        exit(<<<HELP
+    Usage:
+    \033[32m php markdown [source] [destination] [filetype]. \033[0m
+    HELP);
+    }
+
+    if ($argc != 4) {
+        exit("
+    Missing parameters.
+    Usage:
+    php markdown [source] [destination] [filetype].
+    ");
+    }
+
+    if (!file_exists($argv[1])) {
+        exit("\033[42m file(" . $argv[1] . ") was not found. check the spelling or the file link and try again. \033[0m");
+    }
+
+    $supported_file_types = ["html", "docx", "php", "pdf"];
+    $file = file($argv[1]);
+    $filetype = $argv[3];
+
+    if (!in_array($filetype, $supported_file_types)) {
+        exit("\033[42m" . $filetype . " is currently not supported \033[0m");
+    }
+
+    $filename = str_replace([".md"], "." . $filetype, pathinfo($argv[1])['basename']);
+    $destination = str_ends_with($argv[2], DIRECTORY_SEPARATOR) ? $argv[2] . $filename : $argv[2] . DIRECTORY_SEPARATOR . $filename ?? "C:" . DIRECTORY_SEPARATOR;
+
+    $buffer = "." . DIRECTORY_SEPARATOR . "src" . DIRECTORY_SEPARATOR . "buffer" . DIRECTORY_SEPARATOR . microtime(true) . $filename;
+
+    if (file_exists($destination)) {
+        unlink($destination);
+    }
+
+    switch ($filetype) {
+        case "html":
+            (new Html())->html($file, $destination, $buffer);
+            break;
+        case "pdf":
+            (new Pdf())->pdf($file, $destination, $buffer);
+            break;
+    }
+
+    return $destination;
+}
+exit("\033[32mSuccess: \033[0m File generated, location (" . main($argv, $argc) . ") time taken: " . number_format((microtime(true) - $start), 4) . " seconds.");
