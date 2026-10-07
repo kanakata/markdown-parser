@@ -6,18 +6,11 @@ $start = microtime(true);
 function main(array $argv, int $argc)
 {
     if (count($argv) == 1) {
-        exit(<<<HELP
-    Usage:
-    \033[32m php markdown [source] [destination] [filetype]. \033[0m
-    HELP);
+        exit("Usage:\n \033[32m php markdown [source] [destination] [filetype]. \033[0m ");
     }
 
     if ($argc != 4) {
-        exit("
-    Missing parameters.
-    Usage:
-    php markdown [source] [destination] [filetype].
-    ");
+        exit("Missing parameters.\n Usage:\n \033[32m php markdown [source] [destination] [filetype]. \033[0m");
     }
 
     if (!file_exists($argv[1])) {
@@ -26,7 +19,7 @@ function main(array $argv, int $argc)
 
     $supported_file_types = ["html", "docx", "php", "pdf"];
     $file = file($argv[1]);
-    $filetype = $argv[3];
+    $filetype = strtolower($argv[3]);
 
     if (!in_array($filetype, $supported_file_types)) {
         exit("\033[42m" . $filetype . " is currently not supported \033[0m");

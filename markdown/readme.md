@@ -1,5 +1,5 @@
 # Markdown parser
-- Used to convert markdown file to their html equivalent
+- Used to convert markdown file to their  and pdf equivalent.
 
 # Usage
 
