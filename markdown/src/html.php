@@ -2,6 +2,14 @@
 namespace Markdown\Src;
 use Markdown\Src\HtmlMarkup;
 class Html{
+    /**
+     * Summary of html
+     * @param array $file
+     * @param string $destination
+     * @param string $buffer
+     * @param mixed $peddle determines if the html is to be used to generate pdf a file.
+     * @return void
+     */
     public function html(array $file, string $destination, string $buffer, $peddle = false){
         $markup = new HtmlMarkup();
         $replace_count = 1;
@@ -44,7 +52,7 @@ class Html{
                     file_put_contents($buffer, $markup->h6(str_replace("##", "", $file[$i])), LOCK_EX | FILE_APPEND);
                     break;
                 case str_starts_with($file[$i], "-"):
-                    file_put_contents($buffer, $markup->p(str_replace("-", "&raquo", $file[$i], $replace_count)), LOCK_EX | FILE_APPEND);
+                    file_put_contents($buffer, $markup->p(str_replace("-", "⟫", $file[$i], $replace_count)), LOCK_EX | FILE_APPEND);
                     break;
                 case str_starts_with($file[$i], ">"):
                     file_put_contents($buffer, $markup->note(str_replace(">", "", $file[$i])), LOCK_EX | FILE_APPEND);
@@ -53,6 +61,7 @@ class Html{
                     file_put_contents($buffer, str_replace(["```php"], "", $file[$i]), LOCK_EX | FILE_APPEND);
                     break;
                 case str_starts_with($file[$i], "```shell"):
+                    // $ext = ["sh", "shell", "cmd", "bach", "batch"];
                     file_put_contents($buffer, str_replace(["```shell"], "", $file[$i]), LOCK_EX | FILE_APPEND);
                     break;
                 case str_starts_with($file[$i], "```blade"):

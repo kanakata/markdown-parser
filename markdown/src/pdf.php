@@ -5,9 +5,16 @@ namespace Markdown\Src;
 use Dompdf\Dompdf;
 
 class Pdf{
+    /**
+     * Summary of pdf
+     * @param array $file
+     * @param string $destination
+     * @param string $buffer
+     * @return void
+     */
     public function pdf(array $file, string $destination, string $buffer){
-        (new Html())->html($file, $destination, $buffer, true);
-        $dom_pdf = new Dompdf();
+        (new Html)->html($file, $destination, $buffer, true);
+        $dom_pdf = new Dompdf;
         $dom_pdf->loadHtml(file_get_contents($buffer));
         $dom_pdf->setPaper("A4", "landscape");
         $dom_pdf->render();
